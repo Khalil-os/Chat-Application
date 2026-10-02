@@ -62,8 +62,22 @@ int main()
         cout << "Client Socket failed!" << endl;
         WSACleanup();
         closesocket(sock);
+        closesocket(clientSocket);
         return 1;
     }
+
+    char buffer[1024];
+    int rusult = recv(clientSocket, buffer, sizeof(buffer) - 1, 0);
+    if (rusult == SOCKET_ERROR)
+    {
+        cout << "Recv Socket failed!" << endl;
+        WSACleanup();
+        closesocket(sock);
+        closesocket(clientSocket);
+        return 1;
+    }
+    buffer[rusult] = '\0';
+    cout << "Client : " << buffer << endl;
 
     closesocket(sock);
     closesocket(clientSocket);

@@ -48,6 +48,15 @@ int main()
     }
     cout << "Connect initialized successfully!" << endl;
 
+    char msg[] = "hello server";
+    if (send(clientSocket, msg, strlen(msg), 0) == SOCKET_ERROR)
+    {
+        cout << "Send failed!" << endl;
+        closesocket(clientSocket);
+        WSACleanup();
+        return 1;
+    }
+
     closesocket(clientSocket);
     WSACleanup();
     return 0;
